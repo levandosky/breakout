@@ -1,0 +1,70 @@
+@import "palette";
+body {
+  background-color: $color1;
+  & > div {
+    height: 100vh;
+    display: flex;
+  }
+}
+
+//all sizes are relative to vw
+$bulletSize: var(--bulletSize);
+$elementHeight: $bulletSize;
+$bulletStartX: calc(100vw / 2 - calc(var(--bulletSize) / 2));
+$sceneHeight: 100vw * 9 / 16;
+$minBulletYValue: calc(#{$sceneHeight} - var(--bulletSize));
+$platformWidth: var(--platformWidth);
+$platformHeight: calc(1vw * 9 / 16);
+$platformStartX: calc(100vw / 2 - calc(#{$platformWidth} / 2));
+$sceneBottom: calc(100vw * 9 / 16);
+
+@mixin centerVerticaly($elementWidth) {
+  left: calc(100vw / 2 - #{$elementWidth} / 2);
+}
+
+:export {
+  _bulletSize: $bulletSize;
+  _minBulletYValue: calc(100vw * 9 / 16 - calc(100vw / 100));
+}
+
+.root {
+  width: 100vw;
+  height: calc(100vw * 9 / 16);
+  margin: auto 0;
+  position: relative;
+  background-color: $color2;
+  outline: none;
+}
+
+.brick {
+  position: absolute;
+  background-color: $color3;
+  width: var(--brickWidth);
+  height: var(--brickHeight);
+  top: var(--top);
+  left: var(--left);
+  opacity: calc(var(--durability) * 0.33);
+  box-shadow: inset 0 0 0.2vw #000000;
+}
+
+.bullet {
+  position: absolute;
+  background-color: $color3;
+  width: var(--bulletSize);
+  height: var(--bulletSize);
+  border-radius: 50%;
+  top: calc(
+    #{$sceneBottom} - #{$platformHeight} - var(--bulletSize) -
+      var(--bulletPositionY)
+  );
+  left: calc(#{$bulletStartX} + var(--bulletPositionX));
+}
+
+.platform {
+  position: absolute;
+  height: $platformHeight;
+  width: $platformWidth;
+  top: calc(#{$sceneBottom} - #{$platformHeight});
+  left: calc(#{$platformStartX} + var(--platformPositionX));
+  background-color: $color4;
+}
