@@ -1,0 +1,23 @@
+@import "palette";
+@import "consts";
+body {
+  background-color: $color1;
+  margin: 0;
+  & > div {
+    height: 100vh;
+    display: flex;
+  }
+}
+
+.bullet {
+  position: absolute;
+  background-color: $color3;
+  width: var(--bulletSize);
+  height: var(--bulletSize);
+  border-radius: 50%;
+  top: calc(
+    #{$sceneBottom} - #{$platformHeight} - var(--bulletSize) -
+      var(--bulletPositionY)
+  );
+  left: calc(#{$bulletStartX} + var(--bulletPositionX));
+}

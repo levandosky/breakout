@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import styles from "./Breakout.module.scss";
+import Bricks from "./Bricks";
+import Bullet from "./Bullet";
+import Platform from "./Platform";
 import produce from "immer";
-import classNames from "classnames";
 
 export default class Breakout extends Component {
   platformWidth = 10;
@@ -64,18 +66,12 @@ export default class Breakout extends Component {
     this.setCssVariable("--brickWidth", this.brickWidth, "vw");
     this.setCssVariable("--brickHeight", this.brickHeight, "vw");
     setInterval(this.gameLoop, 1000 / this.fps);
-    console.log(styles);
-    // this.gameLoop();
   };
 
   gameLoop = () => {
-    // debugger;
     this.updateState();
-    // debugger;
     this.setCssVariables();
-    // debugger;
     this.collisionCheck();
-    // debugger;
   };
 
   updateState = () =>
@@ -86,8 +82,6 @@ export default class Breakout extends Component {
           bulletVelocityY,
           bulletDirectionX,
           bulletDirectionY,
-          bulletPositionX,
-          bulletPositionY,
           platformMovingLeft,
           platformMovingRight,
           platformPositionX,
@@ -218,16 +212,10 @@ export default class Breakout extends Component {
     this.setState(
       produce(draft => {
         const {
-          bulletVelocityX,
           bulletVelocityY,
-          bulletDirectionX,
-          bulletDirectionY,
           bulletPositionX,
           bulletPositionY,
-          platformMovingLeft,
-          platformMovingRight,
-          platformPositionX,
-          platformVelocity
+          platformPositionX
         } = draft;
         if (bulletPositionY >= this.maxBulletPositionY) {
           draft.bulletDirectionY *= -1;
@@ -271,6 +259,7 @@ export default class Breakout extends Component {
             draft.bulletDirectionY *= -1;
             return true;
           }
+          return false;
         });
       })
     );
@@ -290,7 +279,6 @@ export default class Breakout extends Component {
       >
         <Bricks
           bricks={this.state.bricks}
-          brickWidth={this.brickWidth}
           brickLeft={index => this.brickLeft(index)}
           brickTop={index => this.brickTop(index)}
         />
@@ -300,35 +288,3 @@ export default class Breakout extends Component {
     );
   };
 }
-
-const Bricks = ({ bricks, brickWidth, brickLeft, brickTop }) => {
-  return bricks.map((e, index) => {
-    const left = brickLeft(index);
-    const top = brickTop(index);
-    const { durability } = e;
-    return (
-      <div
-        className={classNames(styles.brick, `${styles.brick}-${index}`)}
-        key={index}
-      >
-        <style>
-          {`
-        .${styles.brick}-${index}{
-          --top: ${top}vw;
-          --left: ${left}vw;
-          --durability: ${durability};
-        }
-      `}
-        </style>
-      </div>
-    );
-  });
-};
-
-const Bullet = () => {
-  return <div className={styles.bullet} />;
-};
-
-const Platform = () => {
-  return <div className={styles.platform} />;
-};

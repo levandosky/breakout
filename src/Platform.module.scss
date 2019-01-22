@@ -1,0 +1,11 @@
+@import "palette";
+@import "consts";
+
+.platform {
+  position: absolute;
+  height: $platformHeight;
+  width: $platformWidth;
+  top: calc(#{$sceneBottom} - #{$platformHeight});
+  left: calc(#{$platformStartX} + var(--platformPositionX));
+  background-color: $color4;
+}

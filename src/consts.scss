@@ -1,0 +1,10 @@
+//all sizes are relative to vw
+$bulletSize: var(--bulletSize);
+$elementHeight: $bulletSize;
+$bulletStartX: calc(100vw / 2 - calc(var(--bulletSize) / 2));
+$sceneHeight: 100vw * 9 / 16;
+$minBulletYValue: calc(#{$sceneHeight} - var(--bulletSize));
+$platformWidth: var(--platformWidth);
+$platformHeight: calc(1vw * 9 / 16);
+$platformStartX: calc(100vw / 2 - calc(#{$platformWidth} / 2));
+$sceneBottom: calc(100vw * 9 / 16);

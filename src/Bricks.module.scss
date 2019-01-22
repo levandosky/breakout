@@ -1,0 +1,13 @@
+@import "palette";
+@import "consts";
+
+.brick {
+  position: absolute;
+  background-color: $color3;
+  width: var(--brickWidth);
+  height: var(--brickHeight);
+  top: var(--top);
+  left: var(--left);
+  opacity: calc(var(--durability) * 0.33);
+  box-shadow: inset 0 0 0.2vw #000000;
+}
